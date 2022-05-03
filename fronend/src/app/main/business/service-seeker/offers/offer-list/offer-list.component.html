@@ -1,0 +1,38 @@
+<div fxFill fxLayout="column">
+  <div class="app-header app-header--carbon">
+    <div class="app-productive-heading-04">Offer List For Service Seeker</div>
+  </div>
+  <div fxFlex class="relative px-4 pb-4 pt-2">
+    <ng-container>
+      <dx-data-grid #grid
+                    id="gridContainer"
+                    [dataSource]="offerList"
+                    keyExpr="OfferID"
+                    [hoverStateEnabled]="true"
+                    [showBorders]="true"
+                    [selectedRowKeys]="[]">
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-editing mode="form"
+                     [allowUpdating]="true">
+        </dxo-editing>
+
+        <dxo-selection mode="single"></dxo-selection>
+        <dxi-column dataField="RequestTitle" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="Voluntary" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="OfferPrice" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="ServiceProviderID" caption="Service Provider" [width]="125">
+          <dxo-lookup [dataSource]="ServiceProviders" displayExpr="Name" valueExpr="ServiceProviderID">
+          </dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="StateID" caption="State" [width]="125">
+          <dxo-lookup [dataSource]="OfferStateList" displayExpr="Name" valueExpr="StateID">
+          </dxo-lookup>
+        </dxi-column>
+        <!--<dxi-column dataField="State"></dxi-column>-->
+      </dx-data-grid>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<div fxFill fxLayout="column">
+  <div class="app-header app-header--carbon">
+    <div class="app-productive-heading-04">Review List</div>
+  </div>
+
+  <div fxFill fxLayout="column">
+    <youpez-header>
+      <youpez-header-title>
+        All Reviews
+      </youpez-header-title>
+      <youpez-header-tools>
+        <button ibmButton="primary" size="sm">
+          Check All As Read
+          <svg class="bx--btn__icon" ibmIconCheckmarkOutline size="20"></svg>
+        </button>
+      </youpez-header-tools>
+    </youpez-header>
+    <div fxFlex class="relative">
+      <youpez-sidenav-container panel="solid">
+        <youpez-sidenav [breakpoint]="'md'"
+                        [direction]="'left'"
+                        [opened]="leftSidebarVisibility"
+                        [hoverAble]="true"
+                        [mode]="'side'"
+                        [toggleableBtn]="true"
+                        [size]="'sideBar1'">
+          <div fxFill fxLayout="column" class="app-bg-container">
+            <div style="margin:10px">
+              <dx-list class="list"
+                       [dataSource]="dataSource"
+                       [grouped]="true"
+                       [searchEnabled]="true"
+                       selectionMode="single"
+                       [selectedItemKeys]="[currentServiceProvider.Id]"
+                       (onSelectionChanged)="listSelectionChanged($event)">
+                <div *dxTemplate="let item of 'item'">
+                  <div>
+                    <div class="hotel">
+                      <div class="name">{{ item.ServiceProviderName }}</div>
+                      <div class="address">
+                        {{item.Skill}}
+                      </div>
+                      <div class="type" [ngClass]="item.Rating.toLowerCase()"></div>
+                    </div>
+
+                  </div>
+                </div>
+                <div *dxTemplate="let item of 'group'">
+                  <div class="city">{{ item.key }}</div>
+                </div>
+              </dx-list>
+            </div>
+
+          </div>
+        </youpez-sidenav>
+
+        <div class="app-a-box app-scrollbar-fix">
+          <ng-scrollbar>
+            <div fxFill fxLayout="column">
+              <div fxFlex class="relative">
+                <div fxLayout="row wrap">
+                  <div fxFlex.gt-lg="100%">
+                    <div style="margin:20px">
+                      <div class="header">
+                        <div class="name-container">
+                          <div class="name"><h3 class="blue-bold">{{ currentServiceProvider.ServiceProviderName }}</h3></div>
+                          <div class="type"
+                               [ngClass]="currentServiceProvider.Rating.toLowerCase()"></div>
+                        </div>
+                        <div style="font-size:medium">
+                          <br />
+                          <p>
+                            {{ currentServiceProvider.Description }}
+                          </p>
+
+                        </div>
+
+                      </div>
+
+                      <h4></h4>
+                      <div style="margin-left:20px;padding:20px; ">
+                        <div>
+                          <div class="review-box" *ngFor="let review of currentServiceProvider.ReviewList">
+                            <div style="font: 8pt; font-weight:bold">{{review.CustomerName}}</div>
+                            <br />
+                            {{review.ReviewText}}
+                            <br />
+                            <div class="type" [ngClass]="review.Rating.toLowerCase()"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--{{currentServiceProvider.ReviewList|json}}-->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </div>
+      </youpez-sidenav-container>
+    </div>
+  </div>
+</div>

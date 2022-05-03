@@ -1,0 +1,129 @@
+<youpez-header>
+  <youpez-header-title>
+    Request List
+  </youpez-header-title>
+  <youpez-header-tools>
+    <a href="/map/index.html{{getMapParams(videos)}}" target="_blank">
+      <button ibmButton="primary" size="sm">
+        Show on Map
+      </button>
+    </a>
+  </youpez-header-tools>
+</youpez-header>
+<div fxFill fxLayout="row wrap" fxLayoutAlign="center start">
+  <div fxFlex="100%" fxFlex.gt-md="80%" fxFlexOffset.gt-md="20%" fxFlex.gt-lg="90%" fxFlexOffset.gt-lg="10%"
+       class="relative h-full">
+    <div class="app-a-box app-scrollbar-fix">
+      <ng-scrollbar track="all">
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="90%" fxFlex.gt-md="80%" fxFlex.gt-lg="70%" class="app-content app-content--default">
+            <div class="mt-8 mb-12">
+              <youpez-logo class="cursor-pointer" logoWidth="200px"></youpez-logo>
+            </div>
+            <div class="">
+              <button routerLink="/app/application/welcome" ibmButton="ghost" size="sm"
+                      class="bx--btn__icon--left -ml-2">
+                <svg class="bx--btn__icon" ibmIconArrowLeft size="20"></svg>
+                Back
+              </button>
+            </div>
+            <div class="app-productive-heading-06 mb-4">
+              Requests from Service Seekers
+            </div>
+            <p class="app-body-short-01 mb-8">Find requests that you can provide for and send a good offer to take the job!</p>
+            <div fxLayout="row">
+              <ng-container *ngFor="let video of videos; index as j;trackBy:trackByFn">
+                <div class="clearfix" *ngIf="j % 3 === 0"></div>
+                <div fxFlex="350px" class="mr-4">
+                  <div class="app-card app-card--m-0">
+                    <div class="app-card__content app-border-b flex justify-between">
+                      <div class="app-productive-heading-03" style="min-height: 60px">{{video.title}}</div>
+                      <ng-container *ngIf="video.seen">
+                        <youpez-ibm-icon iconName="checkMarkOutline" class="app-color-success"></youpez-ibm-icon>
+                      </ng-container>
+                    </div>
+                    <div class="app-card__content app-border-b">
+                      <button (click)="onItemClick({key:'offer', id: video.id})" ibmButton="secondary" size="field" class="mr-1 w-full">
+                        Make an Offer!
+                      </button>
+                    </div>
+                    <div class="app-card__content app-border-b">
+                      <div class="app-subtitle mb-1">CATEGORY</div>
+                      <div class="app-productive-heading-02"><a href="#">#{{video.category}}</a></div>
+                    </div>
+                    <div class="app-card__content app-border-b">
+                      <div class="app-subtitle mb-2">VIDEO</div>
+                      <div class="">
+                        <iframe width="100%" height="250" [src]="video.url | safe:'resourceUrl'" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                      </div>
+                    </div>
+                    <div class="app-card__content app-border-b">
+                      <div class="app-subtitle mb-1">Description</div>
+                      <div class="app-body-short-01">
+                        <ng-container *ngFor="let step of video.steps;trackBy:trackByFn;let i=index">
+                          <div class="pt-1">{{i+1}}. {{step}}</div>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="app-card__content app-border-b">
+                      <div class="app-subtitle mb-1">Posted</div>
+                      <div class="app-productive-heading-02">{{video.posted}}</div>
+                    </div>
+                    <div class="app-card__content">
+                      <div class="app-subtitle mb-1">more info</div>
+                      <div class="app-body-short-01">{{video.info}}</div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div style="height:300px;"></div>
+      </ng-scrollbar>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="makeAnOffer">
+  <youpez-modal (close)="onOfferClose($event)">
+    <div fxFill fxLayout="column">
+      <div class="app-header app-header--carbon">
+        <div class="app-productive-heading-05">Make an Offer!</div>
+      </div>
+      <div fxFlex class="relative px-4 pb-4 pt-2">
+        <ng-container>
+          <div style="height:40px;">
+            <h3>{{videos[currentVideoId].title}}</h3>
+          </div>
+          <dx-form id="form" [formData]="offerInfo">
+            <dxi-item itemType="group" cssClass="first-group" [colCount]="2">
+              <dxi-item>
+                <dx-map provider="bing"
+                        [zoom]="11"
+                        [height]="150"
+                        width="100%"
+                        [controls]="false"
+                        [markerIconSrc]="'/assets/map-marker.png'"
+                        [markers]="[{
+                          location: videos[currentVideoId].location,
+                          tooltip: {
+                            isShown: false,
+                            text: videos[currentVideoId].title
+                          }
+                        }]">
+                </dx-map>
+              </dxi-item>
+              <dxi-item itemType="group">
+                <dxi-item dataField="offerPrice" [readOnly]="offerInfo.volunteer"></dxi-item>
+                <dxi-item dataField="volunteer" [editorOptions]="{onValueChanged:onVolunteer}" editorType="dxCheckBox"></dxi-item>
+              </dxi-item>
+            </dxi-item>
+          </dx-form>
+        </ng-container>
+      </div>
+    </div>
+
+  </youpez-modal>
+</ng-container>

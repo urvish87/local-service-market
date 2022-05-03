@@ -1,0 +1,27 @@
+<div class="app-search">
+  <div class="app-search__overlay"></div>
+  <div class="app-search__modal" (click)="onClose()">
+    <div class="app-search__modal__inner" (click)="$event.stopPropagation()">
+      <div class="app-search__result" ngClass.lt-md="app-search__result--xs">
+        <div fxFill fxLayout="row wrap">
+          <div fxFlex="100%" class="app-search__result__pane1">
+            <div class="app-a-box app-bg-container app-scrollbar-fix">
+              <ng-scrollbar>
+                <ng-content></ng-content>
+              </ng-scrollbar>
+            </div>
+            <div class="app-search__result__btn">
+              <button (click)="onClose()" ibmButton="tertiary" size="sm">
+                Close
+              </button>
+              <button (click)="onOK()" ibmButton="primary" size="sm">
+                OK
+                <svg class="bx--btn__icon" ibmIconArrowRight size="20"></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div fxFill fxLayout="column" style="margin: 20px;">
+  <div class="app-header app-header--carbon">
+    <div class="app-productive-heading-04">Service Provider List</div>
+  </div>
+  <div fxFlex class="relative px-4 pb-4 pt-2">
+    <ng-container *ngIf="!loading">
+      <dx-data-grid #grid
+                    id="gridContainer"
+                    [dataSource]="serviceProviderList"
+                    keyExpr="ServiceProviderID"
+                    [hoverStateEnabled]="true"
+                    [showBorders]="true"
+                    [selectedRowKeys]="[]">
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+
+        <dxo-selection mode="single"></dxo-selection>
+        <dxi-column dataField="Name" cellTemplate="nameTemplate"></dxi-column>
+        <dxi-column dataField="Skill" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="Description"></dxi-column>
+
+
+        <div *dxTemplate="let d of 'nameTemplate'">
+          <a [routerLink]="['/app/service-seeker/show-provider', d.data.ServiceProviderID]">{{d.value }}</a>
+        </div>
+      </dx-data-grid>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div fxFill fxLayout="column">
+  <div class="app-header app-header--carbon">
+    <div class="app-productive-heading-04">Service Seeker Information</div>
+  </div>
+  <div fxFlex class="relative px-4 pb-4 pt-2">
+    <ng-container>
+      <div style="height:40px;">&nbsp;</div>
+      <dx-form id="form" [formData]="userInfo" [readOnly]="true">
+        <dxi-item itemType="group" cssClass="first-group" [colCount]="3">
+          <dxi-item itemType="group">
+            <dxi-item dataField="FirstName"></dxi-item>
+            <dxi-item dataField="LastName"></dxi-item>
+            <dxi-item dataField="BirthDate"
+                      editorType="dxDateBox"
+                      [editorOptions]="{ width: '100%' }"></dxi-item>
+          </dxi-item>
+          <dxi-item itemType="group">
+            <dxi-item dataField="State"
+                      editorType="dxSelectBox"
+                      [editorOptions]="{ items: states }"></dxi-item>
+            <dxi-item dataField="ZipCode"></dxi-item>
+            <dxi-item dataField="Mobile"
+                      [label]="{ text: 'Phone' }"
+                      [editorOptions]="{ mask: '+1 (000) 000-0000' }"></dxi-item>
+          </dxi-item>
+          <dxi-item>
+            <div class="form-avatar"></div>
+          </dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" cssClass="second-group" [colCount]="3">
+          <dxi-item itemType="group">
+            <dxi-item dataField="Address"></dxi-item>
+            <dxi-item dataField="City"></dxi-item>
+            <dxi-item dataField="Email"></dxi-item>
+            <!--<dxi-item dataField="Position"
+            editorType="dxSelectBox"
+            [editorOptions]="{ items: positions, value: '' }"></dxi-item>-->
+          </dxi-item>
+          <dxi-item itemType="group"
+                      [colSpan]="2">
+            <dxi-item dataField="Notes"
+                      editorType="dxTextArea"
+                      [editorOptions]="{ height: 140 }"></dxi-item>
+          </dxi-item>
+        </dxi-item>
+      </dx-form>
+
+
+    </ng-container>
+  </div>
+</div>

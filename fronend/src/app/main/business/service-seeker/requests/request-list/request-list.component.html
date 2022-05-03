@@ -1,0 +1,119 @@
+<div fxFill fxLayout="column">
+  <div class="app-header app-header--carbon">
+    <div class="app-productive-heading-04">Request List</div>
+  </div>
+  <div fxFlex class="relative px-4 pb-4 pt-2">
+    <ng-container>
+      <dx-data-grid #grid
+                    id="gridContainer"
+                    [dataSource]="requestList"
+                    keyExpr="RequestID"
+                    [hoverStateEnabled]="true"
+                    [showBorders]="true"
+                    [selectedRowKeys]="[]">
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-editing mode="popup"
+                     [allowUpdating]="true"
+                     [allowAdding]="true"
+                     [allowDeleting]="true">
+          <dxo-popup title="Request Info"
+                     [showTitle]="true"
+                     [width]="700"
+                     [height]="525">
+          </dxo-popup>
+          <dxo-form>
+            <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+              <dxi-item dataField="RequestTitle"></dxi-item>
+              <!--<dxi-item dataField="RequestStatus"></dxi-item>-->
+              <dxi-item dataField="RequestStatusID" caption="State" [width]="125">
+                <dxo-lookup [dataSource]="OfferStateList" displayExpr="Name" valueExpr="StateID">
+                </dxo-lookup>
+              </dxi-item>
+              <dxi-item dataField="RequestDate"></dxi-item>
+              <dxi-item dataField="ServiceProvider"></dxi-item>
+              <dxi-item dataField="ServiceProviderID" caption="Service Provider" [width]="125">
+                <dxo-lookup [dataSource]="serviceProviders" displayExpr="Name" valueExpr="ServiceProviderID">
+                </dxo-lookup>
+              </dxi-item>
+              <dxi-item dataField="ServiceSeeker"></dxi-item>
+              <dxi-item dataField="CloseDate"></dxi-item>
+              <dxi-item dataField="RequestVideoLink"></dxi-item>
+              <dxi-item dataField="RequestCategoryID" caption="Requst Category" [width]="125">
+                <dxo-lookup [dataSource]="requstCategories" displayExpr="Name" valueExpr="ID">
+                </dxo-lookup>
+              </dxi-item>
+
+              <dxi-item dataField="Description"
+                        editorType="dxTextArea"
+                        [colSpan]="2"
+                        [editorOptions]="{ height: 100 }">
+              </dxi-item>
+              <dxi-item dataField="Lat"></dxi-item>
+              <dxi-item dataField="Lng"></dxi-item>
+
+              <dxi-item>
+                <dx-map provider="bing"
+                        [zoom]="11"
+                        [height]="150"
+                        width="150"
+                        [controls]="false"
+                        [markerIconSrc]="'/assets/map-marker.png'"
+                        [markers]="[{
+                          location: [42.30401652637586,-83.0738203528894],
+                          tooltip: {
+                            isShown: false,
+                            text: 'Test'
+                          }
+                        }]">
+                </dx-map>
+              </dxi-item>
+
+            </dxi-item>
+
+          </dxo-form>
+        </dxo-editing>
+
+        <dxo-selection mode="single"></dxo-selection>
+
+        <dxi-column dataField="RequestTitle"></dxi-column>
+        <dxi-column dataField="RequestStatusID" caption="State" [width]="125">
+          <dxo-lookup [dataSource]="OfferStateList" displayExpr="Name" valueExpr="StateID">
+          </dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="RequestCategoryID" caption="Category" [width]="125">
+          <dxo-lookup [dataSource]="requstCategories" displayExpr="Name" valueExpr="ID">
+          </dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="RequestDate"></dxi-column>
+        <dxi-column dataField="ServiceSeeker"></dxi-column>
+        <dxi-column dataField="ServiceProviderID" caption="Service Provider" [width]="125">
+          <dxo-lookup [dataSource]="serviceProviders" displayExpr="Name" valueExpr="ServiceProviderID">
+          </dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="RequestVideoLink"></dxi-column>
+        <dxi-column dataField="Description"></dxi-column>
+        <dxi-column dataField="Lat"></dxi-column>
+        <dxi-column dataField="Lng"></dxi-column>
+        <dxi-column>
+          <dx-map provider="bing"
+                  [zoom]="11"
+                  [height]="150"
+                  width="150"
+                  [controls]="false"
+                  [markerIconSrc]="'/assets/map-marker.png'"
+                  [markers]="[{
+                          location: [42.30401652637586,-83.0738203528894],
+                          tooltip: {
+                            isShown: false,
+                            text: 'Test'
+                          }
+                        }]">
+          </dx-map>
+        </dxi-column>
+      </dx-data-grid>
+    </ng-container>
+  </div>
+</div>
